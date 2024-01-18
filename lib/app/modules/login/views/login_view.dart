@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:peminjam_perpustakaan_app/app/routes/app_pages.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -49,7 +50,10 @@ class LoginView extends GetView<LoginController> {
                     onPressed: () {
                       controller.login();
                     },
-                    child: Text("Login")))
+                    child: Text("Login"))),
+            ElevatedButton(
+                onPressed: () => Get.toNamed(Routes.REGISTER),
+                child: const Text("Register")),
           ],
         ),
       )),

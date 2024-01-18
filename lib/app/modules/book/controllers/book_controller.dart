@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:peminjam_perpustakaan_app/app/data/constant/endpoint.dart';
-import 'package:peminjam_perpustakaan_app/app/data/model/response_pinjam.dart';
+import 'package:peminjam_perpustakaan_app/app/data/model/response_book.dart';
 import 'package:peminjam_perpustakaan_app/app/data/provider/api_provider.dart';
 
-class PeminjamanController extends GetxController with StateMixin<List<DataPinjam>>{
-  //TODO: Implement PeminjamanController
+class BookController extends GetxController with StateMixin<List<DataBook>>{
+  //TODO: Implement BookController
 
   final count = 0.obs;
   @override
@@ -31,16 +31,16 @@ class PeminjamanController extends GetxController with StateMixin<List<DataPinja
     change(null, status: RxStatus.loading());
     try {
       final response = await ApiProvider.instance().get(Endpoint
-          .pinjam); //fungsi await, baris code di bawah menunggu proses await ini selesai. jika tdk pakai, maka codingan di bawah ini dieksekusi barengan
+          .book); //fungsi await, baris code di bawah menunggu proses await ini selesai. jika tdk pakai, maka codingan di bawah ini dieksekusi barengan
       if (response.statusCode == 200) {
-        final ResponsePinjam responsePinjam = ResponsePinjam.fromJson(response.data);
-        if (responsePinjam.data!.isEmpty) {
+        final ResponseBook responseBook = ResponseBook.fromJson(response.data);
+        if (responseBook.data!.isEmpty) {
           //apakah data dari response diatas kosong?
           //jika kosong kita change status nya ke empty
           change(null, status: RxStatus.empty());
         } else {
           // jika ada kita ubah statusnya menjadi success
-          change(responsePinjam.data, status: RxStatus.success());
+          change(responseBook.data, status: RxStatus.success());
         }
       } else {
         change(null, status: RxStatus.error("Gagal mengambil data"));

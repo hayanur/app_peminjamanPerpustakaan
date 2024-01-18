@@ -18,10 +18,10 @@ class HomeView extends GetView<HomeController> {
       body: Center(
         child: Column(
           children: [
-            ElevatedButton(onPressed: ()=>Get.toNamed(Routes.REGISTER),
-                child: const Text("Register")),
-            ElevatedButton(onPressed: ()=>Get.toNamed(Routes.LOGIN),
-                child: const Text("Login"))
+            ElevatedButton(onPressed: ()=>Get.toNamed(Routes.BOOK),
+                child: const Text("List Buku")),
+            ElevatedButton(onPressed: ()=>Get.toNamed(Routes.PEMINJAMAN),
+                child: const Text("List Peminjaman"))
           ],
         )
       ),
