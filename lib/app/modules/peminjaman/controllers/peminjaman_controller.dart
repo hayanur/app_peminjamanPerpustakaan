@@ -3,11 +3,14 @@ import 'package:get/get.dart';
 import 'package:peminjam_perpustakaan_app/app/data/constant/endpoint.dart';
 import 'package:peminjam_perpustakaan_app/app/data/model/response_pinjam.dart';
 import 'package:peminjam_perpustakaan_app/app/data/provider/api_provider.dart';
+import 'package:peminjam_perpustakaan_app/app/data/provider/storage_provider.dart';
 
-class PeminjamanController extends GetxController with StateMixin<List<DataPinjam>>{
+class PeminjamanController extends GetxController
+    with StateMixin<List<DataPinjam>> {
   //TODO: Implement PeminjamanController
 
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -25,15 +28,17 @@ class PeminjamanController extends GetxController with StateMixin<List<DataPinja
   }
 
   void increment() => count.value++;
+
   Future<void> getData() async {
     //kalau pke void ada nilai baliknya, jadi ngga perlu return
     // getData(){ kalo ngga pakai void type nya dinamic, di kasih return boleh, tdk juga boleh
     change(null, status: RxStatus.loading());
     try {
-      final response = await ApiProvider.instance().get(Endpoint
-          .pinjam); //fungsi await, baris code di bawah menunggu proses await ini selesai. jika tdk pakai, maka codingan di bawah ini dieksekusi barengan
+      final response = await ApiProvider.instance().get(
+          "${Endpoint.pinjam}/${StorageProvider.read(StorageKey.idUser)}");
       if (response.statusCode == 200) {
-        final ResponsePinjam responsePinjam = ResponsePinjam.fromJson(response.data);
+        final ResponsePinjam responsePinjam =
+            ResponsePinjam.fromJson(response.data);
         if (responsePinjam.data!.isEmpty) {
           //apakah data dari response diatas kosong?
           //jika kosong kita change status nya ke empty
